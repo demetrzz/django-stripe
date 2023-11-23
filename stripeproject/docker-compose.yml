@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    env_file:
+      - .env
+  web:
+    build: .
+    entrypoint: /stripeproject/server-entrypoint.sh
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/stripeproject/staticfiles
+      - media_volume:/stripeproject/mediafiles
+    env_file:
+      - .env
+    depends_on:
+      - db
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - static_volume:/stripeproject/staticfiles
+      - media_volume:/stripeproject/mediafiles
+    depends_on:
+      - web
+volumes:
+  static_volume:
+  media_volume:
