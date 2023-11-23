@@ -1,12 +1,13 @@
 # Django with Stripe
 ## Стек:
 * Python 3.11
-* Django 4/
+* Django 4+
 * DjangoRestFramework
 * PostgreSQL
 * Docker
 * Gunicorn
 * Nginx
+* Stripe
 ## Установка проекта
 1. склонировать проект на сервер
 2. создать файл .env в корне проекта по примеру, добавить домен/ip вашего сервера в ALLOWED_HOSTS:
@@ -30,7 +31,7 @@ SECRET_KEY=your_key
 ```
 docker compose build
 docker compose up
-docker exec -t -i container_id
+docker exec -t -i container_id sh
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py test
