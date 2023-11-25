@@ -22,7 +22,7 @@ class BuyOrderView(APIView):
                 currency='usd',
                 payment_method_types=['card'],
             )
-        except Exception as e:
+        except stripe.error.CardError as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({'client_secret': intent['client_secret']})
